@@ -1,21 +1,17 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.ScreenUtil;
+import view.PathViews;
+import view.util.Alerts;
 
 public class MainTemplateController {
 
@@ -43,7 +39,7 @@ public class MainTemplateController {
 	@FXML
 	void btDeleteAction(ActionEvent event) {
 		try {
-			changeScreen("Deletar", ScreenUtil.PATH_DELETE_VIEW);
+			changeScreen("Deletar", PathViews.PATH_DELETE_VIEW);
 			changeBackColorButton(btDelete);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -53,7 +49,7 @@ public class MainTemplateController {
 	@FXML
 	void btEditAction(ActionEvent event) {
 		try {
-			changeScreen("Editar", ScreenUtil.PATH_EDIT_VIEW);
+			changeScreen("Editar", PathViews.PATH_EDIT_VIEW);
 			changeBackColorButton(btEdit);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -65,7 +61,7 @@ public class MainTemplateController {
 	void btNewRegisterAction(ActionEvent event) {
 
 		try {
-			changeScreen("Cadastro", ScreenUtil.PATH_NEW_REGISTER_VIEW);
+			changeScreen("Cadastro", PathViews.PATH_NEW_REGISTER_VIEW);
 			changeBackColorButton(btNewRegister);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -76,7 +72,7 @@ public class MainTemplateController {
 	@FXML
 	void btSearchAction(ActionEvent event) {
 		try {
-			changeScreen("Buscar", ScreenUtil.PATH_SEARCH_VIEW);
+			changeScreen("Buscar", PathViews.PATH_SEARCH_VIEW);
 			changeBackColorButton(btSearch);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,24 +81,11 @@ public class MainTemplateController {
 	
 	@FXML
 	void exitProgram(ActionEvent event) {
-		
-		ButtonType btyes = new ButtonType("Sim", ButtonData.YES);
-		ButtonType btNo = new ButtonType("Não", ButtonData.NO);
-
-		Alert alert = new Alert(AlertType.CONFIRMATION, null, btyes, btNo);
-		alert.setHeaderText("Deseja realmente encerrar a aplicação?");
-		alert.setTitle("Encerrar aplicação");
-		
-		Optional<ButtonType> option = alert.showAndWait(); 
-		
-		if(option.get() == btyes) {
+		if(Alerts.showOptionalAlert("Sair do programa?", "Deseja realmente encerrar a aplicação?")) {
 			Stage stage = (Stage) btExit.getScene().getWindow();
 			stage.close();
 		}
-		
-		
 	}
-	
 
 	private void changeScreen(String title, String pathOfView) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource(pathOfView));

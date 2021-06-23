@@ -1,0 +1,27 @@
+
+CREATE TABLE Author (
+id int(11) NOT NULL AUTO_INCREMENT,
+name varchar(100) NOT NULL, 
+biography varchar(255), 
+nationality varchar(60),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Book(
+id int(11) NOT NULL AUTO_INCREMENT,
+name varchar(100) NOT NULL,
+publishCompany varchar(60),
+year datetime,
+code varchar(60) NOT NULL,
+cloak varchar(255) NOT NULL,
+authorId int(11) NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (autorId) REFERENCES Author (id)
+);
+
+
+SELECT Book.*,Author.name as BookAuthor
+FROM Book INNER JOIN Author
+ON Book.autorId = Author.id
+WHERE authorId = 2
+ORDER BY name;

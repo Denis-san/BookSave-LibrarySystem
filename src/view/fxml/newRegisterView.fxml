@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="200.0" prefWidth="1023.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewRegisterController">
+   <center>
+      <HBox prefHeight="468.0" prefWidth="651.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="468.0" prefWidth="514.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox layoutX="105.0" layoutY="58.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox prefHeight="80.0" prefWidth="582.0">
+                           <children>
+                              <AnchorPane prefHeight="50.0" prefWidth="532.0">
+                                 <children>
+                                    <Label text="Dados do Livro:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label text="Título:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="inputTitle" promptText="Insira o título do livro...." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label text="Editora:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="inputCompany" promptText="Insira o nome da editora..." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label layoutX="19.0" layoutY="17.0" text="Ano:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ComboBox fx:id="selectBoxYer" layoutX="39.0" layoutY="13.0" prefWidth="150.0" promptText="Selecione o ano de lançamento do livro" style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="75.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="51.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label text="ISBN:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="132.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="inputISBN" layoutX="17.0" prefHeight="25.0" prefWidth="166.0" promptText="Insira o código ISBN..." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="210.0" layoutY="10.0" prefHeight="51.0" prefWidth="76.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label text="Código:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="364.0" layoutY="10.0" prefHeight="51.0" prefWidth="74.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="inputCode" layoutX="55.0" prefHeight="25.0" prefWidth="145.0" promptText="Ger. Automát. EX: NKGD8976" style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <Separator prefHeight="26.0" prefWidth="532.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="15.0" />
+                           </VBox.margin>
+                        </Separator>
+                        <VBox prefHeight="80.0" prefWidth="582.0">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Dados do autor:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <HBox prefHeight="75.0" prefWidth="532.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <AnchorPane prefHeight="55.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label layoutX="19.0" layoutY="19.0" text="Nome do autor:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="inputNameAuthor" layoutX="25.0" layoutY="2.0" promptText="Insira o nome do autor..." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="75.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <AnchorPane prefHeight="32.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label text="Nacionalidade:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="32.0" prefWidth="416.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ComboBox fx:id="selectBoxNationality" layoutX="25.0" layoutY="15.0" prefWidth="150.0" promptText="Selecione a nacionalidade do autor..." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="145.0" prefWidth="532.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="100.0" HBox.hgrow="NEVER">
+                                 <children>
+                                    <Label text="Biografia:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextArea fx:id="inputTextAreaBiography" layoutX="-2.0" layoutY="-1.0" prefHeight="96.0" prefWidth="432.0" promptText="Insira uma breve biografia do autor..." AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </AnchorPane>
+            <AnchorPane prefHeight="468.0" prefWidth="373.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <BorderPane layoutX="13.0" layoutY="-4.0" prefHeight="468.0" prefWidth="443.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <bottom>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btCancel" graphicTextGap="10.0" layoutX="40.0" layoutY="34.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" style="-fx-background-color: none; -fx-background-radius: 50;" text="Cancelar" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/icons/cancelGrey.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btSave" graphicTextGap="10.0" layoutX="24.0" layoutY="37.0" mnemonicParsing="false" onAction="#btTeste" prefHeight="32.0" prefWidth="140.0" style="-fx-background-color: none; -fx-background-radius: 50;" text="Salvar" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="35.0">
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../assets/icons/saveGrey.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                     </bottom>
+                     <top>
+                        <ImageView fx:id="shapeBookImg" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@../assets/imgs/template-img.png" />
+                           </image>
+                        </ImageView>
+                     </top>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

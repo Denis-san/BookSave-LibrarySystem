@@ -11,7 +11,7 @@ public class Alerts {
 	
 
 	//return true if button yes pressed
-	public static boolean showOptionalAlert(String title, String message) {
+	public static boolean showOptionAlert(String title, String message) {
 		ButtonType btYes = new ButtonType("Sim", ButtonData.YES);
 		ButtonType btNo = new ButtonType("Não", ButtonData.NO);
 		
@@ -26,5 +26,13 @@ public class Alerts {
 		}else {
 			return false;
 		}
+	}
+	
+	public static void showAlert(String title, String message, AlertType type) {
+		Alert alert = new Alert(type, null);
+		alert.setTitle(title);
+		alert.setHeaderText(message);
+		alert.setContentText(null);
+		alert.show();
 	}
 }

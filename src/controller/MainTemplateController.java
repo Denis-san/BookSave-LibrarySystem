@@ -81,7 +81,7 @@ public class MainTemplateController {
 	
 	@FXML
 	void exitProgram(ActionEvent event) {
-		if(Alerts.showOptionalAlert("Sair do programa?", "Deseja realmente encerrar a aplicação?")) {
+		if(Alerts.showOptionAlert("Sair do programa?", "Deseja realmente encerrar a aplicação?")) {
 			Stage stage = (Stage) btExit.getScene().getWindow();
 			stage.close();
 		}

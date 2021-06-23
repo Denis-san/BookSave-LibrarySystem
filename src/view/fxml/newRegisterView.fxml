@@ -74,7 +74,7 @@
                               </AnchorPane>
                               <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ComboBox fx:id="selectBoxYer" layoutX="39.0" layoutY="13.0" prefHeight="25.0" prefWidth="96.0" promptText="Ano" style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TextField fx:id="inputYear" layoutY="2.0" prefHeight="25.0" prefWidth="89.0" promptText="Ano" style="-fx-background-radius: 50;" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -130,7 +130,7 @@
                               </AnchorPane>
                               <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="inputNameAuthor" layoutX="25.0" layoutY="2.0" promptText="Insira o nome do autor..." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TextField fx:id="inputNameAuthor" layoutX="25.0" layoutY="2.0" onKeyReleased="#onKeyActionInputName" promptText="Insira o nome do autor..." style="-fx-background-radius: 50;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

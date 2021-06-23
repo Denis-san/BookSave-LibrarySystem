@@ -20,29 +20,34 @@ public class AuthorDao implements DaoAuthor {
 		this.connection = connection;
 	}
 
-	public void insert(Author author) throws SQLException {
+	public void insert(Author author){
 		String sql = "INSERT INTO Author (name, biography, nationality) VALUES (?,?,?)";
-		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-		statement.setString(1, author.getName());
-		statement.setString(2, author.getBiography());
-		statement.setString(3, String.valueOf(author.getNationality()));
+			statement.setString(1, author.getName());
+			statement.setString(2, author.getBiography());
+			statement.setString(3, String.valueOf(author.getNationality()));
 
-		int rowsAffected = statement.executeUpdate();
-		ResultSet resultSet;
+			int rowsAffected = statement.executeUpdate();
 
-		if (rowsAffected > 0) {
-			resultSet = statement.getGeneratedKeys();
-			if (resultSet.next()) {
-				int id = resultSet.getInt(1);
-				author.setId(id);
+			if (rowsAffected > 0) {
+				resultSet = statement.getGeneratedKeys();
+				if (resultSet.next()) {
+					int id = resultSet.getInt(1);
+					author.setId(id);
+				}
+			} else {
+				throw new DbException("Unexpected error! No rows affected!");
 			}
-		} else {
-			throw new DbException("Unexpected error! No rows affected!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DbConnection.closeResultSet(resultSet);
+			DbConnection.closeStatment(statement);
 		}
-	
-		DbConnection.closeResultSet(resultSet);
-		DbConnection.closeStatment(statement);
 
 	}
 

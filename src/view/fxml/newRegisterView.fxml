@@ -178,7 +178,7 @@
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btCancel" graphicTextGap="10.0" layoutX="40.0" layoutY="34.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="140.0" style="-fx-background-color: none; -fx-background-radius: 50;" text="Cancelar" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
+                                    <Button fx:id="btCancel" graphicTextGap="10.0" layoutX="40.0" layoutY="34.0" mnemonicParsing="false" onAction="#btCancelAction" prefHeight="46.0" prefWidth="140.0" style="-fx-background-color: none; -fx-background-radius: 50;" text="Cancelar" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -218,7 +218,10 @@
                         </HBox>
                      </bottom>
                      <top>
-                        <ImageView fx:id="shapeBookImg" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                        <ImageView fx:id="shapeBookImg" fitHeight="350.0" fitWidth="350.0" onMouseClicked="#imgSelectAction" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                            <image>
                               <Image url="@../assets/imgs/template-img.png" />
                            </image>

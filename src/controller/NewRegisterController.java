@@ -1,10 +1,9 @@
 package controller;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import javax.imageio.metadata.IIOMetadataFormat;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import model.entities.Author;
 import model.entities.Book;
 import model.enums.Nationality;
@@ -75,28 +76,42 @@ public class NewRegisterController {
 	private BookService bookService = new BookService();
 
 	@FXML
+	void imgSelectAction() {
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images files (*.png)", "*.png");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().add(extFilter);
+		File img = fileChooser.showOpenDialog(shapeBookImg.getScene().getWindow());
+
+		if (img != null) {
+			shapeBookImg.setImage(new Image(img.toURI().toString()));
+		}
+
+	}
+
+	@FXML
 	void onKeyActionInputName() {
 		if (inputNameAuthor.getText().length() >= 8) {
 			Author author = loadAuthor(inputNameAuthor.getText());
-			if (author != null) {
-				inputTextAreaBiography.setText(author.getBiography());
-				selectBoxNationality.setValue(author.getNationality());
-				
-				inputTextAreaBiography.setDisable(true);
-				selectBoxNationality.setDisable(true);
-			}else {
-				inputTextAreaBiography.setText("");
-				selectBoxNationality.setValue(null);
-				
-				inputTextAreaBiography.setDisable(false);
-				selectBoxNationality.setDisable(false);
-			}
+			
+			inputTextAreaBiography.setText((author != null) ? author.getBiography() : null);
+			selectBoxNationality.setValue((author != null ) ? author.getNationality() : null);
 		}
 	}
 
 	@FXML
 	void fillBoxNationality() {
 		selectBoxNationality.getItems().setAll(Nationality.values());
+	}
+
+	@FXML
+	void btCancelAction() {
+		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode, inputISBN, inputNameAuthor };
+		for (TextField field : textFields) {
+			field.setText(null);
+		}
+
+		inputTextAreaBiography.setText(null);
+		selectBoxNationality.setValue(null);
 	}
 
 	@FXML
@@ -125,9 +140,6 @@ public class NewRegisterController {
 			authorService.saveAuthor(author);
 			bookService.saveBook(book);
 			Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
-
-			System.out.println("Ok! funfou!");
-			System.out.println(book + "\n" + author);
 		}
 
 	}
@@ -143,10 +155,10 @@ public class NewRegisterController {
 			book.setCode(inputCode.getText());
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			book.setYear(sdf1.parse("00/00/" + inputYear.getText() + " 00:00:00"));
+			book.setCloak(shapeBookImg.getImage().getUrl());
 		} catch (ParseException e) {
 			book.setYear(null);
 		}
-		book.setCloak("/cloak/path/img.png");
 		return book;
 	}
 
@@ -165,6 +177,10 @@ public class NewRegisterController {
 			if (field.getText() == null || field.getText().equals("")) {
 				return true;
 			}
+		}
+
+		if (shapeBookImg.getImage() == null || shapeBookImg.getImage().getUrl() == null) {
+			return true;
 		}
 		return false;
 	}
@@ -190,7 +206,7 @@ public class NewRegisterController {
 		try {
 			author = authorService.findAuhtor(name);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return null;
 		}
 		return author;
 	}

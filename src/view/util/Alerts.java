@@ -85,6 +85,23 @@ public class Alerts {
 			return false;
 		}
 	}
+
+	public static boolean showOptionDelete() {
+		ButtonType btYes = new ButtonType("Sim", ButtonData.YES);
+		ButtonType btNo = new ButtonType("Não", ButtonData.NO);
+		
+		Alert alert = new Alert(AlertType.CONFIRMATION, null, btYes, btNo);
+		alert.setHeaderText("Confirme a ação?");
+		alert.setTitle("Deseja realmente DELETAR esse livro? Essa operação não poderá ser desfeita!");
+		
+		Optional<ButtonType> option = alert.showAndWait(); 
+		
+		if(option.get() == btYes) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	
 	

@@ -156,8 +156,8 @@ public class NewRegisterController {
 				return;
 			}
 
-			bookService.saveBook(book);
 			authorService.saveAuthor(author);
+			bookService.saveBook(book);
 
 			Alerts.showSucessDataSaveAlert();
 		}

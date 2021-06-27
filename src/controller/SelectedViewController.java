@@ -55,13 +55,11 @@ public class SelectedViewController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		new Thread(() -> {
-			
-			while(pane.isVisible()) {
+			while (pane.isVisible()) {
 				Book book = (Book) pane.getScene().getUserData();
-				if(book != null) {
-					
+				if (book != null) {
 					inputTitle.setText(book.getTitle());
 					inputCompany.setText(book.getPublishCompany());
 					inputYear.setText(book.getYear().toString());
@@ -71,7 +69,7 @@ public class SelectedViewController implements Initializable {
 					inputNationality.setText(String.valueOf(book.getAuthor().getNationality()));
 					inputBiography.setText(book.getAuthor().getBiography());
 					cloakBook.setImage(new Image(book.getCloak()));
-					
+
 					Thread.currentThread().stop();
 					break;
 				}

@@ -32,4 +32,8 @@ public class BookService {
 	public List<Book> findByTitle(String title) throws SQLException {
 		return dao.findByTitle(title);
 	}
+
+	public void deleteBook(Integer id) throws SQLException {
+		dao.deleteById(id);
+	}
 }

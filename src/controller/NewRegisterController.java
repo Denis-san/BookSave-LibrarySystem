@@ -2,14 +2,9 @@ package controller;
 
 import java.io.File;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import javax.print.PrintService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -101,9 +96,7 @@ public class NewRegisterController {
 
 				inputTextAreaBiography.setText((author != null) ? author.getBiography() : null);
 				selectBoxNationality.setValue((author != null) ? author.getNationality() : null);
-
 			}
-			
 		}
 	}
 
@@ -130,60 +123,57 @@ public class NewRegisterController {
 
 		if (fieldsOfBookIsNull()) {
 			if (!fieldsOfAuthorIsNull()) {
-				if (Alerts.showOptionAlert("Confirmação para continuar",
-						"Você está prestes a salvar APERNAS o AUTOR. Deseja continuar?")) {
+				if (Alerts.showOptionAuthorSave()) {
 					authorService.saveAuthor(instantiateAuthor());
-					Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
+					Alerts.showSucessDataSaveAlert();
 					return;
 				}
 			}
-			Alerts.showAlert("Campos inválidos!", "Preencha corretamente todos os campos!", AlertType.ERROR);
+			Alerts.showFieldsInvalidAlert();
 		} else {
 
 			if (fieldsOfAuthorIsNull()) {
-				Alerts.showAlert("Campos inválidos!", "Você precisa preencher os dados do Autor!", AlertType.ERROR);
+				Alerts.showFieldsInvalidAlert();
 				return;
 			}
 
+			if(!yearInputIsValid()) {
+				Alerts.showYearInputsInvalid();
+				return;
+			}
+			
 			author = instantiateAuthor();
 			book = instantiateBook(author);
 
 			if (bookAlreadyExists(book.getTitle())) {
-				Alerts.showAlert("Esse Livro ja existe",
-						"Esse livro ja está cadastrado! Caso queira editar seus dados, visite a aba de edição.",
-						AlertType.WARNING);
+				Alerts.showBookExistsAlert();
 				return;
 			}
 
-			if(loadAuthor(inputNameAuthor.getText()) != null) {
+			if (loadAuthor(inputNameAuthor.getText()) != null) {
 				bookService.saveBook(instantiateBook(loadAuthor(inputNameAuthor.getText())));
-				Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
+				Alerts.showSucessDataSaveAlert();
 				return;
 			}
-			
+
 			bookService.saveBook(book);
 			authorService.saveAuthor(author);
-			
-			Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
+
+			Alerts.showSucessDataSaveAlert();
 		}
 
 	}
 
 	private Book instantiateBook(Author author) {
 		Book book = null;
-		try {
-			book = new Book();
-			book.setId(null);
-			book.setAuthor(author);
-			book.setTitle(inputTitle.getText());
-			book.setPublishCompany(inputCompany.getText());
-			book.setCode(inputCode.getText());
-			SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			book.setYear(sdf1.parse("00/00/" + inputYear.getText() + " 00:00:00"));
-			book.setCloak(shapeBookImg.getImage().getUrl());
-		} catch (ParseException e) {
-			book.setYear(null);
-		}
+		book = new Book();
+		book.setId(null);
+		book.setAuthor(author);
+		book.setTitle(inputTitle.getText());
+		book.setPublishCompany(inputCompany.getText());
+		book.setCode(inputCode.getText());
+		book.setYear(Integer.parseInt(inputYear.getText()));
+		book.setCloak(shapeBookImg.getImage().getUrl());
 		return book;
 	}
 
@@ -247,4 +237,30 @@ public class NewRegisterController {
 
 		return true;
 	}
+
+	private boolean yearInputIsValid() {
+		String format = inputYear.getText();
+		int year = 0;
+
+		if (format.length() == 4) {
+			for (int i = 0; i < format.length(); i++) {
+				if (!Character.isDigit(format.charAt(i))) {
+					return false;
+				}
+			}
+			
+			year = Integer.parseInt(format);
+			
+			//change to get actual year! 
+			if(year <= 1200 || year >= 2022) {
+				return false;
+			}
+			
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.database.exception.DbException;
 import view.PathViews;
 import view.util.Alerts;
 
@@ -65,6 +66,8 @@ public class MainTemplateController {
 			changeBackColorButton(btNewRegister);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (DbException error) {
+			System.out.println("Caiu aqui!");
 		}
 
 	}
@@ -81,7 +84,7 @@ public class MainTemplateController {
 	
 	@FXML
 	void exitProgram(ActionEvent event) {
-		if(Alerts.showOptionAlert("Sair do programa?", "Deseja realmente encerrar a aplicação?")) {
+		if(Alerts.showOptionExit()) {
 			Stage stage = (Stage) btExit.getScene().getWindow();
 			stage.close();
 		}

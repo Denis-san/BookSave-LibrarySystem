@@ -1,7 +1,6 @@
 package model.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Book implements Serializable{
 	private static final long serialVersionUID = 1l;
@@ -9,7 +8,7 @@ public class Book implements Serializable{
 	private Integer id;
 	private String title;
 	private String publishCompany;
-	private Date year;
+	private Integer year;
 	private String code;
 	private String cloak; // caminho da imagem
 	private Author author;
@@ -18,7 +17,7 @@ public class Book implements Serializable{
 		
 	}
 	
-	public Book(Integer id, String title, String publishCompany, Date year, String code, String cloak, Author author) {
+	public Book(Integer id, String title, String publishCompany, Integer year, String code, String cloak, Author author) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -47,10 +46,10 @@ public class Book implements Serializable{
 	public void setPublishCompany(String publishCompany) {
 		this.publishCompany = publishCompany;
 	}
-	public Date getYear() {
+	public Integer getYear() {
 		return year;
 	}
-	public void setYear(Date year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 	public String getCode() {

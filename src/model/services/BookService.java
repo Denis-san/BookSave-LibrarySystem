@@ -5,20 +5,30 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.impl.BookDao;
+import model.database.exception.DbException;
 import model.entities.Book;
+import view.util.Alerts;
 
 public class BookService {
 
-	private BookDao dao = (BookDao) DaoFactory.createBookDao();
-	
+	private BookDao dao;
+
+	public BookService() {
+		try {
+			dao = (BookDao) DaoFactory.createBookDao();
+		}catch(DbException error) {
+			Alerts.showErrorAlert(error);
+		}
+	}
+
 	public void saveBook(Book book) {
 		dao.insert(book);
 	}
-	
-	public List<Book> listAllBooks() throws SQLException{
+
+	public List<Book> listAllBooks() throws SQLException {
 		return dao.findAll();
 	}
-	
+
 	public List<Book> findByTitle(String title) throws SQLException {
 		return dao.findByTitle(title);
 	}

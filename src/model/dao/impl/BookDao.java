@@ -1,13 +1,11 @@
 package model.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +33,9 @@ public class BookDao implements DaoBook {
 					+ "(title, publishCompany, year, code, cloak, authorId) " + "VALUES (?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(book.getYear());
-
 			stmt.setString(1, book.getTitle());
 			stmt.setString(2, book.getPublishCompany());
-			stmt.setDate(3, new Date(cal.get(Calendar.YEAR)));
+			stmt.setInt(3, book.getYear());
 			stmt.setString(4, book.getCode());
 			stmt.setString(5, book.getCloak());
 			stmt.setInt(6, book.getAuthor().getId());
@@ -72,7 +67,7 @@ public class BookDao implements DaoBook {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, book.getTitle());
 		statement.setString(2, book.getPublishCompany());
-		statement.setDate(3, new java.sql.Date(book.getYear().getDate()));
+		statement.setInt(3, book.getYear());
 		statement.setString(4, book.getCode());
 		statement.setString(5, book.getCloak());
 		statement.setInt(6, book.getAuthor().getId());
@@ -98,8 +93,7 @@ public class BookDao implements DaoBook {
 	@Override
 	public List<Book> findAll() throws SQLException {
 		String sql = "SELECT Book.*,Author.name as BookAuthor, Author.nationality as BookAuthorNation, Author.biography as BookAuthorBio "
-				+ "FROM Book INNER JOIN Author "
-				+ "ON Book.authorId = Author.id ORDER BY title";
+				+ "FROM Book INNER JOIN Author " + "ON Book.authorId = Author.id ORDER BY title";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		List<Book> list = new ArrayList<Book>();
 		ResultSet result = statement.executeQuery();
@@ -116,8 +110,8 @@ public class BookDao implements DaoBook {
 	@Override
 	public List<Book> findByAuthor(Author author) throws SQLException {
 		String sql = "SELECT Book.*,Author.name as BookAuthor, Author.nationality as BookAuthorNation, Author.biography as BookAuthorBio "
-				+ "FROM Book INNER JOIN Author "
-				+ "ON Book.authorId = Author.id " + "WHERE authorId = ? " + "ORDER BY title;";
+				+ "FROM Book INNER JOIN Author " + "ON Book.authorId = Author.id " + "WHERE authorId = ? "
+				+ "ORDER BY title;";
 
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setInt(1, author.getId());
@@ -150,14 +144,12 @@ public class BookDao implements DaoBook {
 	@Override
 	public List<Book> findByTitle(String title) throws SQLException {
 		String sql = "SELECT Book.*,Author.name as BookAuthor, Author.nationality as BookAuthorNation, Author.biography as BookAuthorBio "
-				+ "FROM Book "
-				+ "INNER JOIN Author ON Book.authorId = Author.id "
-				+ "WHERE title = ? ;";
+				+ "FROM Book " + "INNER JOIN Author ON Book.authorId = Author.id " + "WHERE title = ? ;";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, title);
 
 		ResultSet result = statement.executeQuery();
-		
+
 		List<Book> list = new ArrayList<Book>();
 
 		while (result.next()) {
@@ -167,7 +159,7 @@ public class BookDao implements DaoBook {
 		DbConnection.closeResultSet(result);
 		DbConnection.closeStatment(statement);
 		return list;
-}
+	}
 
 	private Author instantiateAuthor(ResultSet result) {
 		Author author = null;
@@ -189,7 +181,7 @@ public class BookDao implements DaoBook {
 			book.setId(result.getInt("id"));
 			book.setTitle(result.getString("title"));
 			book.setPublishCompany(result.getString("publishCompany"));
-			book.setYear(result.getDate("year"));
+			book.setYear(result.getInt("year"));
 			book.setCode(result.getString("code"));
 			book.setCloak(result.getString("cloak"));
 			book.setAuthor(author);

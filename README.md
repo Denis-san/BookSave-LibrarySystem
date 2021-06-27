@@ -5,10 +5,10 @@
 
 <h4> 🎯 Objetivos:  </h4>
 
-- [ ] Cadastro de livros e respectivos autores
+- [x] Cadastro de livros e respectivos autores
 - [ ] Atualização de cadastros
 - [ ] Exclusão de cadastros
-- [ ] Listagem de(do) cadastro(s)
+- [x] Listagem de(do) cadastro(s)
 - [ ] ...
 
 ### 🛠️ Tecnologias

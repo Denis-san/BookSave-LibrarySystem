@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,9 +23,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.database.exception.DbException;
 import model.entities.Author;
 import model.entities.Book;
 import model.services.BookService;
+import view.util.Alerts;
 
 public class SearchController implements Initializable {
 
@@ -63,8 +64,7 @@ public class SearchController implements Initializable {
 	@FXML
 	private MenuItem searchAdvancedMenu;
 
-	private BookService service = new BookService();
-
+	private BookService service = null;
 	@FXML
 	void advancedSearchAction(ActionEvent event) {
 
@@ -112,6 +112,15 @@ public class SearchController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		try {
+			service = new BookService();
+		} catch (DbException error) {
+			Alerts.showErrorAlert(error);
+			tableView.getScene().getRoot().setDisable(true);
+			return;
+		}
+		
 		CodeColumn.setCellValueFactory(new PropertyValueFactory<>("code"));
 		titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 		authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -145,6 +154,7 @@ public class SearchController implements Initializable {
 		}
 		);
 		
+	
 	}
 
 	

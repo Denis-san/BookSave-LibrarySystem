@@ -5,10 +5,20 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.impl.AuthorDao;
+import model.database.exception.DbException;
 import model.entities.Author;
+import view.util.Alerts;
 
 public class AuthorService {
-	private AuthorDao dao = (AuthorDao) DaoFactory.createAuthorDao();
+	private AuthorDao dao;
+	
+	public AuthorService() {
+		try {
+			dao = (AuthorDao) DaoFactory.createAuthorDao();
+		}catch(DbException error) {
+			Alerts.showErrorAlert(error);
+		}
+	}
 	
 	public void saveAuthor(Author author) {
 		dao.insert(author);

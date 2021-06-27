@@ -1,33 +1,32 @@
 package model.entities;
 
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Book {
+public class Book implements Serializable{
 	private static final long serialVersionUID = 1l;
 	
 	private Integer id;
-	private String name;
+	private String title;
 	private String publishCompany;
 	private Date year;
 	private String code;
 	private String cloak; // caminho da imagem
-	private Author autor;
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+	private Author author;
 	
 	public Book() {
 		
 	}
 	
-	public Book(Integer id, String name, String publishCompany, Date year, String code, String cloak, Author autor) {
+	public Book(Integer id, String title, String publishCompany, Date year, String code, String cloak, Author author) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.title = title;
 		this.publishCompany = publishCompany;
 		this.year = year;
 		this.code = code;
 		this.cloak = cloak;
-		this.autor = autor;
+		this.author = author;
 	}
 	
 	public Integer getId() {
@@ -36,11 +35,11 @@ public class Book {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getPublishCompany() {
 		return publishCompany;
@@ -66,26 +65,30 @@ public class Book {
 	public void setCloak(String cloak) {
 		this.cloak = cloak;
 	}
-	public Author getAutor() {
-		return autor;
+	public Author getAuthor() {
+		return author;
 	}
-	public void setAutor(Author autor) {
-		this.autor = autor;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "livro: " + id + ", " + name + ", " + publishCompany + ", " + year + ", "
-				+ code + ", " + cloak + ", " + autor.getName();
+		return "livro: " + id + ", " + title + ", " + publishCompany + ", " + year + ", "
+				+ code + ", " + cloak + ", " + author.getName();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((publishCompany == null) ? 0 : publishCompany.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 
@@ -98,15 +101,39 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (author == null) {
+			if (other.author != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!author.equals(other.author))
+			return false;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (publishCompany == null) {
+			if (other.publishCompany != null)
+				return false;
+		} else if (!publishCompany.equals(other.publishCompany))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!year.equals(other.year))
 			return false;
 		return true;
 	}
+
 	
 	
 }

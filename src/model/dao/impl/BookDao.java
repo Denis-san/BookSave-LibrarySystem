@@ -17,6 +17,7 @@ import model.database.DbConnection;
 import model.database.exception.DbException;
 import model.entities.Author;
 import model.entities.Book;
+import model.enums.Nationality;
 
 public class BookDao implements DaoBook {
 	private Connection connection;
@@ -31,18 +32,18 @@ public class BookDao implements DaoBook {
 
 		try {
 			stmt = connection.prepareStatement("INSERT INTO Book"
-					+ "(name, publishCompany, year, code, cloak, authorId) " + "VALUES (?, ?, ?, ?, ?, ?)",
+					+ "(title, publishCompany, year, code, cloak, authorId) " + "VALUES (?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(book.getYear());
 
-			stmt.setString(1, book.getName());
+			stmt.setString(1, book.getTitle());
 			stmt.setString(2, book.getPublishCompany());
 			stmt.setDate(3, new Date(cal.get(Calendar.YEAR)));
 			stmt.setString(4, book.getCode());
 			stmt.setString(5, book.getCloak());
-			stmt.setInt(6, book.getAutor().getId());
+			stmt.setInt(6, book.getAuthor().getId());
 
 			int rowsAffected = stmt.executeUpdate();
 
@@ -65,20 +66,18 @@ public class BookDao implements DaoBook {
 	}
 
 	@Override
-	public void update(Book book) throws SQLException{
-		String sql = "UPDATE Book " 
-					+ "SET name = ?, publishCompany = ?, year = ?, code = ?, cloak = ?, authorId = ? " 
-					+ "WHERE id = ?";
+	public void update(Book book) throws SQLException {
+		String sql = "UPDATE Book " + "SET title = ?, publishCompany = ?, year = ?, code = ?, cloak = ?, authorId = ? "
+				+ "WHERE id = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, book.getName());
+		statement.setString(1, book.getTitle());
 		statement.setString(2, book.getPublishCompany());
 		statement.setDate(3, new java.sql.Date(book.getYear().getDate()));
 		statement.setString(4, book.getCode());
 		statement.setString(5, book.getCloak());
-		statement.setInt(6, book.getAutor().getId());
+		statement.setInt(6, book.getAuthor().getId());
 		statement.setInt(7, book.getId());
 
-		
 		statement.executeUpdate();
 
 		DbConnection.closeStatment(statement);
@@ -98,8 +97,9 @@ public class BookDao implements DaoBook {
 
 	@Override
 	public List<Book> findAll() throws SQLException {
-		String sql = "SELECT Book.*,Author.name as BookAuthor FROM Book INNER JOIN Author "
-				+ "ON Book.authorId = Author.id ORDER BY name";
+		String sql = "SELECT Book.*,Author.name as BookAuthor, Author.nationality as BookAuthorNation, Author.biography as BookAuthorBio "
+				+ "FROM Book INNER JOIN Author "
+				+ "ON Book.authorId = Author.id ORDER BY title";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		List<Book> list = new ArrayList<Book>();
 		ResultSet result = statement.executeQuery();
@@ -115,8 +115,9 @@ public class BookDao implements DaoBook {
 
 	@Override
 	public List<Book> findByAuthor(Author author) throws SQLException {
-		String sql = "SELECT Book.*,Author.name as BookAuthor FROM Book INNER JOIN Author "
-				+ "ON Book.authorId = Author.id " + "WHERE authorId = ? " + "ORDER BY name;";
+		String sql = "SELECT Book.*,Author.name as BookAuthor, Author.nationality as BookAuthorNation, Author.biography as BookAuthorBio "
+				+ "FROM Book INNER JOIN Author "
+				+ "ON Book.authorId = Author.id " + "WHERE authorId = ? " + "ORDER BY title;";
 
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setInt(1, author.getId());
@@ -146,12 +147,36 @@ public class BookDao implements DaoBook {
 		return list;
 	}
 
+	@Override
+	public List<Book> findByTitle(String title) throws SQLException {
+		String sql = "SELECT Book.*,Author.name as BookAuthor, Author.nationality as BookAuthorNation, Author.biography as BookAuthorBio "
+				+ "FROM Book "
+				+ "INNER JOIN Author ON Book.authorId = Author.id "
+				+ "WHERE title = ? ;";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, title);
+
+		ResultSet result = statement.executeQuery();
+		
+		List<Book> list = new ArrayList<Book>();
+
+		while (result.next()) {
+			list.add(instantiateBook(result, instantiateAuthor(result)));
+		}
+
+		DbConnection.closeResultSet(result);
+		DbConnection.closeStatment(statement);
+		return list;
+}
+
 	private Author instantiateAuthor(ResultSet result) {
 		Author author = null;
 		try {
 			author = new Author();
 			author.setId(result.getInt("authorId"));
 			author.setName(result.getString("BookAuthor"));
+			author.setNationality(Nationality.valueOf(result.getString("BookAuthorNation")));
+			author.setBiography(result.getString("BookAuthorBio"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -162,12 +187,12 @@ public class BookDao implements DaoBook {
 		Book book = new Book();
 		try {
 			book.setId(result.getInt("id"));
-			book.setName(result.getString("name"));
+			book.setTitle(result.getString("title"));
 			book.setPublishCompany(result.getString("publishCompany"));
 			book.setYear(result.getDate("year"));
 			book.setCode(result.getString("code"));
 			book.setCloak(result.getString("cloak"));
-			book.setAutor(author);
+			book.setAuthor(author);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,8 @@
 package model.services;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import model.dao.DaoFactory;
 import model.dao.impl.BookDao;
 import model.entities.Book;
@@ -12,4 +15,11 @@ public class BookService {
 		dao.insert(book);
 	}
 	
+	public List<Book> listAllBooks() throws SQLException{
+		return dao.findAll();
+	}
+	
+	public List<Book> findByTitle(String title) throws SQLException {
+		return dao.findByTitle(title);
+	}
 }

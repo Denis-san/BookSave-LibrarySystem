@@ -12,4 +12,5 @@ public interface DaoBook {
 	public void deleteById(Integer id) throws SQLException;
 	public List<Book> findAll() throws SQLException;
 	public List<Book> findByAuthor(Author author) throws SQLException;
+	public List<Book> findByTitle(String title) throws SQLException;
 }

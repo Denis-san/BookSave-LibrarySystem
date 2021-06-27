@@ -1,8 +1,12 @@
 package model.entities;
 
+import java.io.Serializable;
+
 import model.enums.Nationality;
 
-public class Author {
+public class Author implements Serializable{
+	
+	private static final long serialVersionUID = 1l;
 	
 	private Integer id;
 	private String name;
@@ -89,7 +93,7 @@ public class Author {
 
 	@Override
 	public String toString() {
-		return "Author: " + id + ", name:" + name + ", biography:" + biography + ", nationality:" + nationality;
+		return this.name;
 	}
 	
 	

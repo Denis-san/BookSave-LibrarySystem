@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.print.PrintService;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -90,11 +92,18 @@ public class NewRegisterController {
 
 	@FXML
 	void onKeyActionInputName() {
-		if (inputNameAuthor.getText().length() >= 8) {
-			Author author = loadAuthor(inputNameAuthor.getText());
+
+		if (inputNameAuthor.getText() != null) {
+
+			if (inputNameAuthor.getText().length() >= 8) {
+
+				Author author = loadAuthor(inputNameAuthor.getText());
+
+				inputTextAreaBiography.setText((author != null) ? author.getBiography() : null);
+				selectBoxNationality.setValue((author != null) ? author.getNationality() : null);
+
+			}
 			
-			inputTextAreaBiography.setText((author != null) ? author.getBiography() : null);
-			selectBoxNationality.setValue((author != null ) ? author.getNationality() : null);
 		}
 	}
 
@@ -120,25 +129,41 @@ public class NewRegisterController {
 		Book book = null;
 
 		if (fieldsOfBookIsNull()) {
-			if (fieldsOfAuthorIsNull()) {
-				Alerts.showAlert("Campos inválidos", "Por favor preencha corretamente todos os campos!",
-						AlertType.WARNING);
-				return;
+			if (!fieldsOfAuthorIsNull()) {
+				if (Alerts.showOptionAlert("Confirmação para continuar",
+						"Você está prestes a salvar APERNAS o AUTOR. Deseja continuar?")) {
+					authorService.saveAuthor(instantiateAuthor());
+					Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
+					return;
+				}
 			}
-			if (Alerts.showOptionAlert("Confirmação para continuar",
-					"Você está prestes a salvar APERNAS o AUTOR. Deseja continuar?")) {
-				author = instantiateAuthor();
-
-				authorService.saveAuthor(author);
-				Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
-				return;
-			}
+			Alerts.showAlert("Campos inválidos!", "Preencha corretamente todos os campos!", AlertType.ERROR);
 		} else {
+
+			if (fieldsOfAuthorIsNull()) {
+				Alerts.showAlert("Campos inválidos!", "Você precisa preencher os dados do Autor!", AlertType.ERROR);
+				return;
+			}
+
 			author = instantiateAuthor();
 			book = instantiateBook(author);
 
-			authorService.saveAuthor(author);
+			if (bookAlreadyExists(book.getTitle())) {
+				Alerts.showAlert("Esse Livro ja existe",
+						"Esse livro ja está cadastrado! Caso queira editar seus dados, visite a aba de edição.",
+						AlertType.WARNING);
+				return;
+			}
+
+			if(loadAuthor(inputNameAuthor.getText()) != null) {
+				bookService.saveBook(instantiateBook(loadAuthor(inputNameAuthor.getText())));
+				Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
+				return;
+			}
+			
 			bookService.saveBook(book);
+			authorService.saveAuthor(author);
+			
 			Alerts.showAlert("Sucesso!", "Dados gravados com sucesso!", AlertType.CONFIRMATION);
 		}
 
@@ -149,8 +174,8 @@ public class NewRegisterController {
 		try {
 			book = new Book();
 			book.setId(null);
-			book.setAutor(author);
-			book.setName(inputTitle.getText());
+			book.setAuthor(author);
+			book.setTitle(inputTitle.getText());
 			book.setPublishCompany(inputCompany.getText());
 			book.setCode(inputCode.getText());
 			SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -211,4 +236,15 @@ public class NewRegisterController {
 		return author;
 	}
 
+	private boolean bookAlreadyExists(String title) {
+		try {
+			if (bookService.findByTitle(title).isEmpty()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
 }

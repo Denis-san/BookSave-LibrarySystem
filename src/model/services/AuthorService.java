@@ -1,6 +1,7 @@
 package model.services;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.impl.AuthorDao;
@@ -15,5 +16,9 @@ public class AuthorService {
 	
 	public Author findAuhtor(String name) throws SQLException {
 		return dao.findByName(name);
+	}
+	
+	public List<Author> listAll() throws SQLException{
+		return dao.findAll();
 	}
 }

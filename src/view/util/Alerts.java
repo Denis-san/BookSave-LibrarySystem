@@ -90,9 +90,9 @@ public class Alerts {
 		ButtonType btYes = new ButtonType("Sim", ButtonData.YES);
 		ButtonType btNo = new ButtonType("Não", ButtonData.NO);
 		
-		Alert alert = new Alert(AlertType.CONFIRMATION, null, btYes, btNo);
-		alert.setHeaderText("Confirme a ação?");
-		alert.setTitle("Deseja realmente DELETAR esse livro? Essa operação não poderá ser desfeita!");
+		Alert alert = new Alert(AlertType.WARNING, null, btYes, btNo);
+		alert.setTitle("Confirme a ação?");
+		alert.setHeaderText("Deseja realmente DELETAR esse livro? Essa operação não poderá ser desfeita!");
 		
 		Optional<ButtonType> option = alert.showAndWait(); 
 		
@@ -102,6 +102,8 @@ public class Alerts {
 			return false;
 		}
 	}
+
+
 	
 	
 	

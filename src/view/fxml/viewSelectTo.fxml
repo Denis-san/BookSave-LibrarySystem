@@ -24,16 +24,12 @@
                <children>
                   <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
-                        <TableColumn fx:id="CodeColumn" prefWidth="96.0" text="Código" />
-                        <TableColumn fx:id="ISBNColumn" prefWidth="135.0" text="ISBN" />
-                        <TableColumn fx:id="titleColumn" prefWidth="311.0" text="Título" />
-                        <TableColumn fx:id="authorColumn" prefWidth="276.0" text="Autor" />
-                        <TableColumn fx:id="yearColumn" prefWidth="99.33331298828125" text="Ano" />
-                        <TableColumn fx:id="companyColumn" prefWidth="173.33334350585938" text="Editora" />
+                        <TableColumn fx:id="titleColumn" prefWidth="146.0" text="Título" />
+                        <TableColumn fx:id="authorColumn" minWidth="0.0" prefWidth="87.0" text="Autor" />
+                        <TableColumn fx:id="yearColumn" minWidth="0.0" prefWidth="51.0" text="Ano" />
+                        <TableColumn fx:id="companyColumn" minWidth="0.0" prefWidth="69.0" text="Editora" />
+                        <TableColumn fx:id="CodeColumn" prefWidth="58.0" text="Código" />
                      </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
                      <tooltip>
                         <Tooltip text="Dê um duplo clique para ver mais detalhes sobre um item." />
                      </tooltip>

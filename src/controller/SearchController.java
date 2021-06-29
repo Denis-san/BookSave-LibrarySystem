@@ -28,6 +28,7 @@ import model.entities.Author;
 import model.entities.Book;
 import model.services.BookService;
 import view.util.Alerts;
+import view.util.ButtonMouseEffect;
 
 public class SearchController implements Initializable {
 
@@ -36,9 +37,6 @@ public class SearchController implements Initializable {
 
 	@FXML
 	private TableColumn<Book, String> CodeColumn;
-
-	@FXML
-	private TableColumn<Book, String> ISBNColumn;
 
 	@FXML
 	private TableColumn<Book, String> titleColumn;
@@ -154,7 +152,14 @@ public class SearchController implements Initializable {
 		}
 		);
 		
-	
+		btSearch.setOnMouseEntered(event -> {
+			ButtonMouseEffect.changeBorderButton(btSearch, true);
+		});
+
+		btSearch.setOnMouseExited(event -> {
+			ButtonMouseEffect.changeBorderButton(btSearch, false);
+		});
+		
 	}
 
 	

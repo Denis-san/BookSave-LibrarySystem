@@ -27,9 +27,6 @@ public class SelectedViewController implements Initializable {
 	private TextField inputYear;
 
 	@FXML
-	private TextField inputISBN;
-
-	@FXML
 	private TextField inputCode;
 
 	@FXML
@@ -64,7 +61,6 @@ public class SelectedViewController implements Initializable {
 					inputCompany.setText(book.getPublishCompany());
 					inputYear.setText(book.getYear().toString());
 					inputCode.setText(book.getCode());
-					inputISBN.setText("TXT MUDE");
 					inputNameAuthor.setText(book.getAuthor().getName());
 					inputNationality.setText(String.valueOf(book.getAuthor().getNationality()));
 					inputBiography.setText(book.getAuthor().getBiography());

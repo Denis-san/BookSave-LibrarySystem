@@ -93,22 +93,12 @@
                            <children>
                               <AnchorPane prefHeight="51.0" prefWidth="100.0" HBox.hgrow="NEVER">
                                  <children>
-                                    <Label text="ISBN:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Label layoutX="40.0" layoutY="15.0" text="Código:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="132.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="inputISBN" editable="false" layoutX="17.0" prefHeight="25.0" prefWidth="166.0" promptText="Insira o código ISBN..." style="-fx-background-radius: 50; -fx-background-color: none;" text="987-45-45-46547-8" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="210.0" layoutY="10.0" prefHeight="51.0" prefWidth="76.0" HBox.hgrow="NEVER">
-                                 <children>
-                                    <Label text="Código:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="364.0" layoutY="10.0" prefHeight="51.0" prefWidth="74.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <TextField fx:id="inputCode" editable="false" layoutX="55.0" prefHeight="25.0" prefWidth="145.0" promptText="Ger. Automát. EX: NKGD8976" style="-fx-background-radius: 50; -fx-background-color: none;" text="#HGTW9873" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TextField fx:id="inputCode" editable="false" layoutX="28.0" layoutY="14.0" prefHeight="25.0" prefWidth="145.0" promptText="Ger. Automát. EX: NKGD8976" style="-fx-background-radius: 50; -fx-background-color: none;" text="#HGTW9873" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

@@ -30,9 +30,6 @@ public class SelectToController implements Initializable {
 	private TableColumn<Book, String> CodeColumn;
 
 	@FXML
-	private TableColumn<Book, String> ISBNColumn;
-
-	@FXML
 	private TableColumn<Book, String> titleColumn;
 
 	@FXML

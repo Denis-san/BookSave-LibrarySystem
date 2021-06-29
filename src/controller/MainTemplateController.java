@@ -14,7 +14,7 @@ import model.database.exception.DbException;
 import view.PathViews;
 import view.util.Alerts;
 
-public class MainTemplateController {
+public class MainTemplateController{
 
 	@FXML
 	private BorderPane mainTemplatePane;
@@ -109,4 +109,5 @@ public class MainTemplateController {
 
 		}
 	}
+
 }

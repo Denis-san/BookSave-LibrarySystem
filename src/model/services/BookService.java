@@ -36,4 +36,9 @@ public class BookService {
 	public void deleteBook(Integer id) throws SQLException {
 		dao.deleteById(id);
 	}
+
+	public void updateBook(Book book) throws SQLException {
+		dao.update(book);
+		
+	}
 }

@@ -5,7 +5,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,6 +20,7 @@ import javafx.stage.Stage;
 import model.entities.Book;
 import model.services.BookService;
 import view.util.Alerts;
+import view.util.ButtonMouseEffect;
 
 public class DeleteViewController implements Initializable {
 
@@ -49,9 +49,6 @@ public class DeleteViewController implements Initializable {
 	private TextField inputYear;
 
 	@FXML
-	private TextField inputISBN;
-
-	@FXML
 	private TextField inputCode;
 
 	@FXML
@@ -62,7 +59,7 @@ public class DeleteViewController implements Initializable {
 
 	@FXML
 	private TextArea inputBiography;
-	
+
 	private Book book = null;
 
 	@FXML
@@ -93,7 +90,6 @@ public class DeleteViewController implements Initializable {
 						inputCompany.setText(book.getPublishCompany());
 						inputYear.setText(book.getYear().toString());
 						inputCode.setText(book.getCode());
-						inputISBN.setText("TXT MUDE");
 						inputNameAuthor.setText(book.getAuthor().getName());
 						inputNationality.setText(String.valueOf(book.getAuthor().getNationality()));
 						inputBiography.setText(book.getAuthor().getBiography());
@@ -112,7 +108,7 @@ public class DeleteViewController implements Initializable {
 
 	@FXML
 	void btCancelAction() {
-		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode, inputISBN, inputNameAuthor };
+		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode, inputNameAuthor };
 		for (TextField field : textFields) {
 			field.setText(null);
 		}
@@ -126,11 +122,11 @@ public class DeleteViewController implements Initializable {
 	void btDeleteAction() {
 		BookService service = new BookService();
 		try {
-		if(Alerts.showOptionDelete()) {
-			service.deleteBook(book.getId());
-			Alerts.showSucessDataSaveAlert();
-		}
-		}catch(SQLException e) {
+			if (Alerts.showOptionDelete()) {
+				service.deleteBook(book.getId());
+				Alerts.showSucessDataSaveAlert();
+			}
+		} catch (SQLException e) {
 			Alerts.showErrorAlert(e);
 		}
 	}
@@ -138,35 +134,28 @@ public class DeleteViewController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		btCancel.setOnMouseEntered(event -> {
-			changeBorderButton(btCancel, true);
+			ButtonMouseEffect.changeBorderButton(btCancel, true);
 		});
 
 		btCancel.setOnMouseExited(event -> {
-			changeBorderButton(btCancel, false);
+			ButtonMouseEffect.changeBorderButton(btCancel, false);
 		});
-		
+
 		btDelete.setOnMouseEntered(event -> {
-			changeBorderButton(btDelete, true);
+			ButtonMouseEffect.changeBorderButton(btDelete, true);
 		});
 
 		btDelete.setOnMouseExited(event -> {
-			changeBorderButton(btDelete, false);
+			ButtonMouseEffect.changeBorderButton(btDelete, false);
 		});
-		
+
 		btSearch.setOnMouseEntered(event -> {
-			changeBorderButton(btSearch, true);
+			ButtonMouseEffect.changeBorderButton(btSearch, true);
 		});
 
 		btSearch.setOnMouseExited(event -> {
-			changeBorderButton(btSearch, false);
+			ButtonMouseEffect.changeBorderButton(btSearch, false);
 		});
 	}
 
-	private void changeBorderButton(Button bt, boolean active) {
-		if (active) {
-			bt.setStyle("-fx-background-radius: 50; -fx-background-color: #f2f2f2;");
-		}else {
-			bt.setStyle("-fx-background-radius: none; -fx-background-color: white;");
-		}
-	}
 }

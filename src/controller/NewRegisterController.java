@@ -1,10 +1,13 @@
 package controller;
 
 import java.io.File;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -18,23 +21,12 @@ import model.enums.Nationality;
 import model.services.AuthorService;
 import model.services.BookService;
 import view.util.Alerts;
+import view.util.ButtonMouseEffect;
 
-public class NewRegisterController {
-
-	@FXML
-	private Button btNewRegister;
-
-	@FXML
-	private Button btSearch;
+public class NewRegisterController implements Initializable {
 
 	@FXML
 	private ImageView btEdit;
-
-	@FXML
-	private ImageView btDelete;
-
-	@FXML
-	private Button btExit;
 
 	@FXML
 	private TextField inputTitle;
@@ -44,9 +36,6 @@ public class NewRegisterController {
 
 	@FXML
 	private TextField inputYear;
-
-	@FXML
-	private TextField inputISBN;
 
 	@FXML
 	private TextField inputCode;
@@ -107,7 +96,7 @@ public class NewRegisterController {
 
 	@FXML
 	void btCancelAction() {
-		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode, inputISBN, inputNameAuthor };
+		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode, inputNameAuthor };
 		for (TextField field : textFields) {
 			field.setText(null);
 		}
@@ -137,11 +126,11 @@ public class NewRegisterController {
 				return;
 			}
 
-			if(!yearInputIsValid()) {
+			if (!yearInputIsValid()) {
 				Alerts.showYearInputsInvalid();
 				return;
 			}
-			
+
 			author = instantiateAuthor();
 			book = instantiateBook(author);
 
@@ -187,7 +176,7 @@ public class NewRegisterController {
 	}
 
 	private boolean fieldsOfBookIsNull() {
-		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode, inputISBN };
+		TextField[] textFields = { inputTitle, inputCompany, inputYear, inputCode };
 		for (TextField field : textFields) {
 			if (field.getText() == null || field.getText().equals("")) {
 				return true;
@@ -248,19 +237,38 @@ public class NewRegisterController {
 					return false;
 				}
 			}
-			
+
 			year = Integer.parseInt(format);
-			
-			//change to get actual year! 
-			if(year <= 1200 || year >= 2022) {
+
+			// change to get actual year!
+			if (year <= 1200 || year >= 2022) {
 				return false;
 			}
-			
+
 			return true;
 		} else {
 			return false;
 		}
 
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		btCancel.setOnMouseEntered(event -> {
+			ButtonMouseEffect.changeBorderButton(btCancel, true);
+		});
+
+		btCancel.setOnMouseExited(event -> {
+			ButtonMouseEffect.changeBorderButton(btCancel, false);
+		});
+
+		btSave.setOnMouseEntered(event -> {
+			ButtonMouseEffect.changeBorderButton(btSave, true);
+		});
+
+		btSave.setOnMouseExited(event -> {
+			ButtonMouseEffect.changeBorderButton(btSave, false);
+		});
 	}
 
 }

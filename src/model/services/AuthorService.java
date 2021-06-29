@@ -31,4 +31,11 @@ public class AuthorService {
 	public List<Author> listAll() throws SQLException{
 		return dao.findAll();
 	}
+
+	public void updateAuthor(Author author) throws SQLException{
+		dao.update(author);
+		
+	}
+	
+	
 }

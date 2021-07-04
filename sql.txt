@@ -9,19 +9,19 @@ PRIMARY KEY (id)
 
 CREATE TABLE Book(
 id int(11) NOT NULL AUTO_INCREMENT,
-name varchar(100) NOT NULL,
+title varchar(100) NOT NULL,
 publishCompany varchar(60),
-year datetime,
+year int(4),
 code varchar(60) NOT NULL,
 cloak varchar(255) NOT NULL,
 authorId int(11) NOT NULL,
 PRIMARY KEY (id),
-FOREIGN KEY (autorId) REFERENCES Author (id)
+FOREIGN KEY (authorId) REFERENCES Author (id)
 );
 
 
 SELECT Book.*,Author.name as BookAuthor
 FROM Book INNER JOIN Author
-ON Book.autorId = Author.id
+ON Book.authorId = Author.id
 WHERE authorId = 2
 ORDER BY name;

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="200.0" prefWidth="1023.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewRegisterController">
+<BorderPane prefHeight="200.0" prefWidth="1023.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewRegisterController">
    <center>
       <HBox prefHeight="468.0" prefWidth="651.0" BorderPane.alignment="CENTER">
          <children>
